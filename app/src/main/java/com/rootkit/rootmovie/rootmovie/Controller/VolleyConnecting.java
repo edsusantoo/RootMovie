@@ -29,5 +29,6 @@ public class VolleyConnecting {
                 resultHeandle.errorResultData(error.toString());
             }
         });
+        requestQueue.add(stringRequest);
     }
 }

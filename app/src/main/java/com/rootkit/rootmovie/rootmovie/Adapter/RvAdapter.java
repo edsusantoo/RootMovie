@@ -33,7 +33,8 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.LisHolder>  {
     public LisHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_movie, null);
-        return new LisHolder(view);
+        LisHolder lisHolder = new LisHolder(view);
+        return lisHolder;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.LisHolder>  {
 
     @Override
     public int getItemCount() {
-        return this.upComingMovies.size();
+        return upComingMovies.size();
     }
 
     class LisHolder extends RecyclerView.ViewHolder{

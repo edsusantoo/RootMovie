@@ -11,10 +11,10 @@ import java.util.List;
 public class ItemObject {
 
     public class UpComingMovie{
-        @SerializedName("result")
+        @SerializedName("results")
         List<upcoming> upcoming;
 
-        public class upcoming{
+        public class upcoming {
 
             @SerializedName("poster_path")
             private String poster_path;

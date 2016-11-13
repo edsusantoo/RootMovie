@@ -3,7 +3,6 @@ package com.rootkit.rootmovie.rootmovie;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,21 +16,21 @@ import com.rootkit.rootmovie.rootmovie.Controller.MovieURL;
 import com.rootkit.rootmovie.rootmovie.Controller.ResultHeandle;
 import com.rootkit.rootmovie.rootmovie.Controller.VolleyConnecting;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = "MainActivity";
 
     VolleyConnecting volleyConnecting;
     MovieURL movieURL;
 
-    ImageView imgUpComing;
-    TextView txtJudulUpComing;
 
     RecyclerView recyclerView;
-    LinearLayoutManager layoutManager;
+    GridLayoutManager layoutManager;
     RvAdapter rvAdapter;
 
     ItemObject.UpComingMovie upComingMovie;
+
+    final static private String URLL = "https://api.themoviedb.org/3/movie/upcoming?api_key=50ec555cc1d67559ec5eb1bff307acce";
 
 
     @Override
@@ -39,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+
         recyclerView = (RecyclerView)findViewById(R.id.rv_item_movie);
-        layoutManager = new GridLayoutManager(MainActivity.this, 2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -53,17 +54,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void getUpComingMovie() {
         volleyConnecting = new VolleyConnecting();
-        volleyConnecting.getData(this, "https://api.themoviedb.org/3/movie/upcoming?api_key=50ec555cc1d67559ec5eb1bff307acce", new ResultHeandle() {
+        volleyConnecting.getData(getApplicationContext(), URLL, new ResultHeandle() {
             @Override
             public void resultData(String response) {
+
+                Log.d(TAG, "Response " + response);
+
                 GsonBuilder gsonBuilder = new GsonBuilder();
                 Gson gson = gsonBuilder.create();
 
                 upComingMovie = gson.fromJson(response, ItemObject.UpComingMovie.class);
+
+
                 rvAdapter = new RvAdapter(MainActivity.this, upComingMovie.upcoming);
                 recyclerView.setAdapter(rvAdapter);
 
-                Toast.makeText(getApplicationContext(), "txt",Toast.LENGTH_LONG).show();
+
+
 
             }
 
