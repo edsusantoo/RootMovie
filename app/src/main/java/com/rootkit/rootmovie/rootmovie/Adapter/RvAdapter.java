@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.rootkit.rootmovie.rootmovie.ItemObject;
+import com.rootkit.rootmovie.rootmovie.Fragment.ItemObject;
 import com.rootkit.rootmovie.rootmovie.R;
 
 import java.util.List;

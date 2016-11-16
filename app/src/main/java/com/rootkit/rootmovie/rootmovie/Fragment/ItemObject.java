@@ -1,4 +1,4 @@
-package com.rootkit.rootmovie.rootmovie;
+package com.rootkit.rootmovie.rootmovie.Fragment;
 
 import com.google.gson.annotations.SerializedName;
 

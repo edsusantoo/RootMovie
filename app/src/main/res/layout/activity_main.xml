@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -11,11 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.rootkit.rootmovie.rootmovie.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_item_movie"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

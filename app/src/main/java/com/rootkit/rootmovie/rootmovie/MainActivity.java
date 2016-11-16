@@ -1,11 +1,17 @@
 package com.rootkit.rootmovie.rootmovie;
 
+import android.app.Activity;
+import android.support.annotation.IdRes;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,22 +21,17 @@ import com.rootkit.rootmovie.rootmovie.Adapter.RvAdapter;
 import com.rootkit.rootmovie.rootmovie.Controller.MovieURL;
 import com.rootkit.rootmovie.rootmovie.Controller.ResultHeandle;
 import com.rootkit.rootmovie.rootmovie.Controller.VolleyConnecting;
+import com.rootkit.rootmovie.rootmovie.Fragment.FragmentPopular;
+import com.rootkit.rootmovie.rootmovie.Fragment.FragmentTopRate;
+import com.rootkit.rootmovie.rootmovie.Fragment.FragmentUpComing;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = "MainActivity";
-
-    VolleyConnecting volleyConnecting;
-    MovieURL movieURL;
 
 
-    RecyclerView recyclerView;
-    GridLayoutManager layoutManager;
-    RvAdapter rvAdapter;
 
-    ItemObject.UpComingMovie upComingMovie;
-
-    final static private String URLL = "https://api.themoviedb.org/3/movie/upcoming?api_key=50ec555cc1d67559ec5eb1bff307acce";
 
 
     @Override
@@ -38,46 +39,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
-
-        recyclerView = (RecyclerView)findViewById(R.id.rv_item_movie);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-
-        getUpComingMovie();
-
-
-
-    }
-
-    private void getUpComingMovie() {
-        volleyConnecting = new VolleyConnecting();
-        volleyConnecting.getData(getApplicationContext(), URLL, new ResultHeandle() {
+        //
+        BottomBar bottomBar = BottomBar.attach(this, savedInstanceState);
+        bottomBar.setItemsFromMenu(R.menu.menu, new OnMenuTabSelectedListener() {
             @Override
-            public void resultData(String response) {
+            public void onMenuItemSelected(@IdRes int menuItemId) {
+                switch(menuItemId){
+                    case R.id.up_coming:
+                        FragmentUpComing fragmentUpComing = new FragmentUpComing();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragmentUpComing).commit();
+                        break;
+                    case R.id.pupular:
+                        FragmentPopular fragmentPopular = new FragmentPopular();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragmentPopular).commit();
+                        break;
+                    case R.id.movie:
+                        FragmentTopRate fragmentTopRate = new FragmentTopRate();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragmentTopRate).commit();
+                        break;
 
-                Log.d(TAG, "Response " + response);
-
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-
-                upComingMovie = gson.fromJson(response, ItemObject.UpComingMovie.class);
-
-
-                rvAdapter = new RvAdapter(MainActivity.this, upComingMovie.upcoming);
-                recyclerView.setAdapter(rvAdapter);
-
-
-
-
-            }
-
-            @Override
-            public void errorResultData(String errorResponse) {
-
+                }
             }
         });
+
+        bottomBar.setActiveTabColor("#C2185B");
+
+        //
+
+
+
+
+
+
+
+
     }
+
+
 }

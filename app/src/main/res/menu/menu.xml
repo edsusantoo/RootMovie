@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/up_coming"
+        android:icon="@drawable/ic_fiber_new_black_24dp"
+        android:title="Coming Soon" />
+    <item
+        android:id="@+id/pupular"
+        android:icon="@drawable/ic_whatshot_black_24dp"
+        android:title="Popular" />
+    <item
+        android:id="@+id/movie"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="Top Rate" />
+</menu>
